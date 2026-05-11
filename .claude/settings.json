@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git clone *)"
+      "Bash(git clone *)",
+      "Bash(ls ComposioHQ_awesome-claude-skills/.git)",
+      "Bash(ls abubakarsiddik31_claude-skills-collection/.git)",
+      "Bash(ls alirezarezvani_claude-skills/.git)",
+      "Bash(ls awesome_agent_skills/.git)",
+      "Bash(ls glebis_claude-skills/.git)"
     ]
   }
 }
