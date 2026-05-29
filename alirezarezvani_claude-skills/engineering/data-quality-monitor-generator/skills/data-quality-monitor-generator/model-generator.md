@@ -25,27 +25,39 @@ guessing.
 
 ## INPUTS YOU EXPECT
 
-1. **Data export (required)** — sample or full extract of the table. You read the schema and
-   data characteristics from this. The export is the source of truth for what the data
-   *actually* looks like; when the spec and the data disagree, the data wins (the table is
-   built and enforces type), but the disagreement is itself worth flagging.
-2. **README / filing documentation (optional, high value)** — describes what each field
+This generator takes **two differently-shaped inputs**, because data quality and volume
+monitoring need different data. Do not expect one extract to serve both.
+
+1. **Row-level slice (required) — for data quality monitoring.** A complete, full-width
+   extract over a recent contiguous window (e.g., most recent ~3 months). Every field that can
+   appear in that window is present, with full column width. You read schema and per-field data
+   characteristics (null %, types, distinct values, ranges, cardinality) from this. This input
+   drives all data-quality monitors. It is a recent slice, NOT the full history — so treat the
+   set of observed domain/enum values as "recent values seen," and flag allowed-value monitors
+   for confirmation against full history rather than asserting the list is complete.
+
+2. **Daily rollup (optional, strongly recommended) — for volume & freshness monitoring.** An
+   aggregate of one row per day (optionally per day × segment such as filing/form type) with
+   record counts, ideally spanning multiple years. This is the time series. Use it to baseline
+   volume monitors against real seasonality, day-of-week rhythm, period-end surges, and (for
+   13F) quarterly cycles — not against a single snapshot. When this input is present, volume and
+   freshness thresholds are grounded in history and should NOT carry the single-snapshot caveat.
+   When it is absent, baseline volume off the row-level slice and tag those thresholds
+   `[BASELINE FROM SINGLE EXPORT — CONFIRM AGAINST HISTORICAL]`.
+
+3. **README / filing documentation (optional, high value)** — describes what each field
    *means*, and whether it is **required, optional, or conditionally required** under the
-   filing rules. Use this as the primary input to the materiality triage below. A field the
-   README marks conditionally required is NOT a safe skip just because it's sparse in the
-   export — sparseness may be correct, or may be a break; flag it for confirmation rather than
-   skipping silently.
-3. **Form/table name (infer if not stated)** — label each monitor with its table.
+   filing rules. Primary input to the materiality triage below. A field the README marks
+   conditionally required is NOT a safe skip just because it's sparse in the row-level slice.
+
+4. **Form/table name (infer if not stated)** — label each monitor with its table.
 
 **Scope: final table only.** You monitor the export as the final, business-consumed table.
-You do NOT monitor upstream transformation or raw-to-export lineage — that is a separate
-discipline out of scope here. Use the README's field-meaning and required/optional/conditional
-status to ground the triage; do not let spec minutiae crowd out the materiality signal or the
-live data. When in doubt, the export is truth; the README is there to explain and ground it,
-not to override it. When the spec and the data disagree, the data wins — but flag the
-disagreement, as it is itself a data quality finding.
+You do NOT monitor upstream transformation or raw-to-export lineage — out of scope here. When
+the spec and the data disagree, the data wins — but flag the disagreement, as it is itself a
+data quality finding.
 
-If the export is missing or unreadable, say so and stop. Do not invent fields.
+If the row-level slice is missing or unreadable, say so and stop. Do not invent fields.
 
 ## SELECT FIELDS BY REASONING — DO NOT MONITOR EVERYTHING
 
@@ -101,12 +113,16 @@ row per applicable monitor. Cover two families:
   in a reference set). Flag as a monitor even if you can't verify the target from the export;
   mark target as "confirm reference source."
 
-### Volume monitors
-- **Row volume / Count** — total record count baseline with expected range (e.g., daily/period
-  load within X% of baseline).
-- **Per-segment volume** — counts by a natural partition (filing type, period, filer category)
-  if such a field exists, with drop/surge detection.
-- **Freshness / Recency** — max load/filing timestamp should be within an expected lag.
+### Volume monitors (baselined from the daily rollup when provided)
+- **Row volume / Count** — expected daily (or per-period) record count with a tolerance band
+  derived from the rollup's historical distribution, accounting for observed seasonality and
+  day-of-week effects rather than a flat average.
+- **Per-segment volume** — counts by natural partition (filing/form type, period) with
+  drop/surge detection, when the rollup carries a segment dimension. This catches a healthy
+  total hiding a dead segment.
+- **Freshness / Recency** — most recent record's date should be within expected lag, judged
+  against the rollup's normal cadence (e.g., gaps that are normal over a weekend vs. anomalous
+  mid-week).
 
 ## THRESHOLD RULES
 
@@ -114,11 +130,12 @@ row per applicable monitor. Cover two families:
   **set a concrete threshold** derived from it, with a stated tolerance band.
 - Where you must guess (no evidence in data), set a **conservative default and append
   `[TUNE]`** so the reviewer knows to confirm it.
-- **Snapshot honesty (critical):** a single export is a point-in-time snapshot. Volume and
-  freshness monitors are inherently about change over time. Emit them, baseline them off the
-  snapshot, but append `[BASELINE FROM SINGLE EXPORT — CONFIRM AGAINST HISTORICAL]` to any
-  threshold that needs a time series to be trustworthy. Never present a snapshot-derived
-  volume band as if it were validated against history.
+- **Time-series honesty (critical):** Volume and freshness are about change over time. When a
+  daily rollup is provided, baseline these against its historical distribution and state the
+  basis (e.g., "daily count within X% of trailing-90-day median, seasonally adjusted"). When NO
+  rollup is provided, you only have a point-in-time slice — emit the monitors, baseline them off
+  the slice, but append `[BASELINE FROM SINGLE EXPORT — CONFIRM AGAINST HISTORICAL]`. Never
+  present a single-slice-derived volume band as if it were validated against history.
 
 ## SEVERITY
 
