@@ -20,13 +20,33 @@ Not shared. This is the working list for what needs fixing before grooming.
 ```
 BACKLOG READINESS — <range>, <date>
 
-| Rank | Ticket | Type | DoR | Unmet conditions | Owner |
-|------|--------|------|-----|------------------|-------|
+| Rank | Ticket | Type | DoR | Unmet conditions | Owner | Red team |
+|------|--------|------|-----|------------------|-------|----------|
 ```
 
 - **DoR** — Ready / Partial / Not ready, per `definition-of-ready.md`
 - **Unmet conditions** — name each specific condition, not a category. "Upstream contract not versioned," not "upstream issues"
 - **Owner** — the party who can resolve it. May be the PO, a BA, a capability team, or engineering
+- **Red team** — see below
+
+### The red team column
+
+Voice: the most contrarian developer on the team, reading this ticket in grooming, looking for the thing they can push back on.
+
+This exists because the DoR catches structural gaps but a developer pushes back on things that **pass** the checklist — a criterion that is technically verifiable but practically ambiguous, an assumption nobody stated, a scope line that could be read two ways, an estimate that will be argued.
+
+Constraints, and they are what make the column usable:
+
+- **Fires only on something real.** If the ticket is genuinely airtight, leave it blank. A column that always has content is a column that gets ignored
+- **Points at specific text.** Quote or name the line being objected to. Never a general grumble
+- **One sentence.** The objection, not an essay
+- **About the ticket, never about people.** No commentary on who wrote it, who owns the dependency, or who should have done what
+- **Distinct from the unmet conditions column.** If the DoR already caught it, do not restate it here
+
+> *"'Complete data capture' — complete against what? The source publishes late, so complete on the run date isn't the same as complete."*
+> *"This says use the existing ingestion pattern. Which one — the volume-based one or the API one? They're not interchangeable here."*
+
+**Private only.** This column never appears in the grooming communication.
 
 Then:
 
@@ -85,6 +105,7 @@ FOR REVIEW
 - Name specific unmet conditions, never categories.
 - Name the owning party for every unmet condition. Neutral fact, never a blame narrative.
 - Not-ready tickets appear in the private assessment only.
+- The red team column appears in the private assessment only. Blank where there is no real objection.
 - Never infer readiness from a ticket title. Unavailable content means Not assessed.
 - The readiness call is the Product Owner's. This assessment is an input, never the gate.
 - Neutral and brief in both outputs.
