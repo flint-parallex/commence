@@ -75,6 +75,7 @@ The through-line: **nothing enters a sprint unassessed, and nothing sets archite
 | Delivers a functional change a consumer receives | User story | `user-story.md` |
 | Lands a new source and makes it queryable (L0→L1) | Data onboarding | `data-onboarding.md` |
 | Configures monitors on a table with real data | Empirical monitoring | `empirical-monitoring.md` |
+| Applies supplied dataset and column descriptions to catalog objects | Catalog comments | `catalog-comments.md` |
 | Answers a question the team cannot proceed without | Spike | `spike.md` |
 
 If unclear, ask. Three boundary cases worth knowing:
@@ -98,7 +99,7 @@ If unclear, ask. Three boundary cases worth knowing:
 - `acceptance-criteria.md` — the AC quality standard. Read for every ticket carrying criteria
 - `definition-of-ready.md` — the intake gate, universal and type-specific conditions
 - `decomposition.md` — four modes: propose, refine, spike from grooming, close spike
-- `user-story.md` · `spike.md` · `data-onboarding.md` · `empirical-monitoring.md` · `epic.md` — archetypes
+- `user-story.md` · `spike.md` · `data-onboarding.md` · `empirical-monitoring.md` · `catalog-comments.md` · `epic.md` — archetypes
 - `backlog-readiness-assessment.md` — backlog assessment and grooming communication
 - `technical-preread.md` — developer-facing pre-read format
 - `confluence-map.md` — live link resolution and fallback
