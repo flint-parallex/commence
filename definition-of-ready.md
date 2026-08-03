@@ -77,6 +77,14 @@ Additional to the universal set. Assess only those applicable to the ticket type
 - Referential mapping provided where the table is L3: source tables and join key
 - Real data exists in the target environment. A monitoring ticket against a table with no data is not ready
 
+### Catalog comments
+
+- Dataset comments file attached — columns `dataset`, `description`
+- Column comments file attached — columns `dataset`, `column`, `column description`
+- Target catalog and schema named
+- Target environment stated
+- Every dataset and column named in the files exists in the target environment. Descriptions for objects that do not yet exist are not ready
+
 ### Epic
 
 - Rolls up to a named initiative
