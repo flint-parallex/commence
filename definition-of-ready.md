@@ -77,6 +77,17 @@ Additional to the universal set. Assess only those applicable to the ticket type
 - Referential mapping provided where the table is L3: source tables and join key
 - Real data exists in the target environment. A monitoring ticket against a table with no data is not ready
 
+### Initiative summary
+
+- Business capability being delivered is stated, with its consumer
+- OKRs named (IP-OKR-###)
+- Segment named
+- Epics identified, or their shape known
+- Scope boundary stated and derived
+- Upstream source owners named. An initiative with unnamed source owners has unowned data contracts beneath every epic
+- Capability dependencies named with their providing teams
+- Delivery horizon stated
+
 ### Catalog comments
 
 - Dataset comments file attached — columns `dataset`, `description`
