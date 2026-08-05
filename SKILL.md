@@ -41,6 +41,10 @@ Every artifact this skill produces is written in the same register.
 
 **Declare the target gate.** UAT, prod, or spike. This determines which DoD gate applies. Default to UAT if unspecified.
 
+**Publish in storage format.** Anything posted to Confluence is converted to Confluence storage format per `confluence-formatting.md`, using the appropriate macros. Never post raw Markdown.
+
+**Never invent business context.** Business problem and business impact sections on initiatives and epics come from a business source. If the only inputs are technical, stop and ask — see the business context gate in `initiative-summary.md` and `epic.md`.
+
 **Outcome-framed titles.** What the work achieves, not the activity.
 
 **Dependencies are Jira links.** Native issue links with the correct type — `is blocked by` upstream, `blocks` for what this enables, `relates to` for reference. Listed separately from the body, never written into the description as prose.
@@ -103,6 +107,7 @@ If unclear, ask. Three boundary cases worth knowing:
 - `initiative-summary.md` · `epic.md` · `user-story.md` · `spike.md` · `data-onboarding.md` · `empirical-monitoring.md` · `catalog-comments.md` — archetypes
 - `backlog-readiness-assessment.md` — backlog assessment and grooming communication
 - `technical-preread.md` — developer-facing pre-read format
+- `confluence-formatting.md` — storage format and macro usage for anything published to Confluence
 - `confluence-map.md` — live link resolution and fallback
 
 ## The line this skill holds

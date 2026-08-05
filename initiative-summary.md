@@ -6,6 +6,29 @@ Write an initiative when the work spans multiple epics and is coherent as a sing
 
 **The initiative summary is a standing reference, not a status report.** It states what is being delivered and why, and it holds while the initiative is live. Progress, timelines, and tracking belong to `delivery-communication` — do not write status into it.
 
+## The business context gate
+
+**Stop and flag if the inputs are not sufficient to write the business-facing sections.**
+
+The summary, business problem, and business impact are the whole point of this document — it is read by stakeholders who never see an epic or a ticket. They must come from a business source. **Never derive them from technical content.** Given a set of epics or a description of systems to be built, a business narrative can always be constructed that reads well and is grounded in nothing a stakeholder said.
+
+The gate is stricter here than at epic level, because an initiative summary is the most stakeholder-facing artifact this skill produces and because every epic beneath it inherits its framing.
+
+Sufficient business context means all four are known:
+
+1. **Who the consumer is** — a named group, not "the business"
+2. **What capability is unavailable to them today**, stated without reference to implementation
+3. **The consequence** of that gap
+4. **What becomes possible** once it is delivered
+
+The test: **can the business problem be stated without mentioning any table, pipeline, system, or code?** If not, the context is technical and the business sections cannot be written from it.
+
+When context is insufficient, do not draft the sections and do not fill them with plausible language. State it:
+
+> Insufficient business context to write the summary, business problem, and business impact. Missing: *[which of the four]*. The inputs provided describe *[the technical scope]*, which is not a business capability. Provide the requirement or BA source, or these sections should be drafted with the business owner.
+
+The remaining sections — epics, capability dependencies, stakeholders, scope boundary — can be written from what is available. Produce those and flag the gap rather than blocking the whole document.
+
 ## Required inputs
 
 Ask for any missing. Never invent stakeholder names, dates, or metrics.

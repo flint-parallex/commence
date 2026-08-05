@@ -4,6 +4,27 @@ An epic is the delivery container for a data product or a coherent slice of one.
 
 Write an epic when the work spans multiple tickets, delivers a named set of tables or datasets, and has its own stakeholder set and acceptance. If it fits in one ticket, it is not an epic.
 
+## The business context gate
+
+**Stop and flag if the inputs are not sufficient to write the business-facing sections.**
+
+The initiative summary, business problem, and business impact are business-facing. They must come from a business source — a requirement, a BA document, a stakeholder conversation. **Never derive them from technical content.** Given only a description of code to be fixed, a pipeline to be built, or a table to be delivered, a business problem can always be constructed that sounds plausible and is not grounded in anything a stakeholder said.
+
+Sufficient business context means all four are known:
+
+1. **Who the consumer is** — a named group, not "the business"
+2. **What they cannot do today**, stated without reference to implementation
+3. **The consequence** of that gap — what is slower, manual, unreliable, or unavailable
+4. **What they will do** with the deliverable
+
+The test: **can the business problem be stated without mentioning any table, pipeline, system, or code?** If not, the context is technical and the business sections cannot be written from it.
+
+When context is insufficient, do not draft the sections and do not fill them with plausible language. State it:
+
+> Insufficient business context to write the business problem and business impact. Missing: *[which of the four]*. The inputs provided describe *[the technical work]*, which is not a business problem. Provide the requirement or BA source, or these sections should be drafted with the business owner.
+
+Everything else in the epic — tables, dependencies, stakeholders, DoD — can be written from technical inputs. Only the business-facing sections are gated.
+
 ## Required inputs
 
 Ask for any of these that are missing. Do not invent them — especially named people, table names, dates, and metrics.

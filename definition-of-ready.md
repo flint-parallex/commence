@@ -79,6 +79,7 @@ Additional to the universal set. Assess only those applicable to the ticket type
 
 ### Initiative summary
 
+- Business context sufficient to write the business-facing sections: named consumer, what capability is unavailable to them today, the consequence, and what becomes possible. Stated without reference to implementation. Technical scope alone is not sufficient
 - Business capability being delivered is stated, with its consumer
 - OKRs named (IP-OKR-###)
 - Segment named
@@ -98,6 +99,7 @@ Additional to the universal set. Assess only those applicable to the ticket type
 
 ### Epic
 
+- Business context sufficient to write the business problem and business impact: named consumer, what they cannot do today, the consequence, and what they will do with the deliverable. Technical scope alone is not sufficient
 - Rolls up to a named initiative
 - Tables or datasets delivered are named, with grain
 - Stakeholder set complete, including the upstream source owner
