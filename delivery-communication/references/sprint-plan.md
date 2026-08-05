@@ -11,6 +11,7 @@ A published, one-page statement of what the sprint delivers. Read by stakeholder
 - OKRs in play, and what each is delivering this sprint
 - Target environment per workstream
 - Known dependencies: team, what is needed, status
+- Releases falling within 30 days of the sprint start, from the release plan
 
 ## Structure
 
@@ -35,6 +36,17 @@ One line per workstream. What a consumer gets, and the environment it lands in.
 
 Not what is inside it. Not how many pieces. Not who is building it.
 
+### Releases — next 30 days
+
+| Release | Product | Date | Environment |
+|---|---|---|---|
+
+Releases falling within 30 days of the sprint start date. Sourced from `release-plan.md` — do not restate what a release delivers, and do not maintain the detail separately. Link to the release plan for that.
+
+Include the whole window, not only releases inside the sprint. One landing eight days after the sprint ends is exactly what a reader of a sprint plan needs to see coming.
+
+If none fall in the window, write "None in the next 30 days." Omitting the section reads as an oversight.
+
 ### Dependencies
 
 | Team | Needed | Status |
@@ -50,6 +62,7 @@ This section is why the page is worth publishing. It puts external dependencies 
 - Three themes. Not four, not seven.
 - No ticket keys, counts, velocity, capacity, or assignments.
 - Do not rewrite the sprint goal.
+- Releases are sourced from `release-plan.md`. Name, product, date, environment only — never restate what a release delivers, and never maintain the detail in two places.
 - Dependency status is neutral fact, never a blame narrative.
 - Published in Confluence storage format per `confluence-formatting.md`.
 - Nothing here that a reader does not need to know what the sprint delivers.
