@@ -139,6 +139,31 @@ What this team produces at the end: results, metrics summary, friction log, enha
 
 ---
 
+## Publication and layering
+
+**One page, in the consumer space (DPNO). Not split across spaces.** Splitting the plan from its results fragments the record and forces a reader to chase links. Instead, the single page is layered so a stakeholder lands on what they need and execution detail sits below the reading path.
+
+**Visible on landing** — everything through success criteria:
+Purpose · In scope · Out of scope · Deliverables · Roles and responsibilities · Assumptions · Open items · Test methodology (phases, entry and exit criteria, scope of subjects, metrics definitions) · Success criteria
+
+This is what a stakeholder needs before sign-off, and putting the exit criteria in front of them *before* results exist is the point of an agreed gate.
+
+**Inside an expander** — `Testing details`:
+Test procedure · Test record template · Test results and entries
+
+Engineering writes results directly into this section. It stays honest and complete without dominating the page. Note that an expander controls the reading path, not access — anyone can open it. Do not place anything in it that should not be read.
+
+**Visible below** — Issue log. What was found stays in front of the reader.
+
+**Not published to the consumer space at all:**
+Action items · Owner tracking · Anything following the issue log
+
+These are delivery management, not stakeholder information. They stay in the internal record.
+
+**IT space** — a link to this page. No mirrored content. One canonical location.
+
+**Validation summaries** append beneath the plan as dated entries, per `validation-report.md`. A reader then lands on one page carrying the agreed criteria and the current status against them.
+
 ## Rules
 
 - Never quote individuals from transcripts. Extract commitments as statements.
@@ -149,5 +174,7 @@ What this team produces at the end: results, metrics summary, friction log, enha
 - Define subjective thresholds in advance — "minor," "material," "acceptable."
 - Friction is an observation about the capability, never a complaint about a team.
 - Where the sources do not establish something, it is an open item — not an inference.
+- One canonical page in the consumer space. Never mirror content into the IT space — link to it.
+- Test procedure, test record, and results go inside the `Testing details` expander. Action items and anything after the issue log are never published to the consumer space.
 - Published in Confluence storage format per `confluence-formatting.md`. Open items and deliverables as task lists with assignees.
 - Neutral and brief.
