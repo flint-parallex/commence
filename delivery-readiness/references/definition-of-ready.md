@@ -26,6 +26,7 @@ Apply to every ticket type.
 **Acceptance criteria**
 - Present, and written per `acceptance-criteria.md`
 - Every criterion passes the task/criterion test — states what must be true, not what someone must do
+- Every criterion asserting something about delivered data maps to an available check in `unit_tests/checks_reference.md`, or the gap is named. A criterion with no possible check is a defect in the criterion, not a criterion to accept — see `check-authoring.md`
 - No unverifiable verbs without a concrete condition attached
 - Criteria cover the stated scope, with nothing implied but unstated
 
