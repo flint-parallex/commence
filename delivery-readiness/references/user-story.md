@@ -86,7 +86,7 @@ Categories applicable to a user story, generated only where relevant to the chan
 - Pipeline observability
 - Error handling and alerting
 
-Empirical monitoring criteria do not belong on a build story — they belong on the separate empirical monitoring ticket, per `decomposition.md`.
+Runtime monitors do not gate a merge. They are a deliverable of the unit, verified post-deploy — the criterion is that the monitor is deployed and its binding recorded. Split by threshold source per `decomposition.md`.
 
 **For pipeline-heavy stories,** group the criteria under subheadings — table build, pipeline observability, error handling — so the list stays readable. Grouping is presentational; the rules are unchanged.
 

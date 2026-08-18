@@ -1,6 +1,6 @@
 ---
 name: delivery-readiness
-description: Writes and assesses delivery artifacts for the data engineering team — epics, user stories, spikes, data onboarding and monitoring tickets — and decomposes canonical delivery documents into proposed ticket sets. Use when writing or refining a ticket, writing acceptance criteria, breaking a requirement into work, assessing whether backlog items are ready, or preparing for grooming. Triggers on phrasing like "write a ticket for", "break this down", "is this ready to build", or "prep for grooming" without an explicit request.
+description: Writes and assesses delivery artifacts for the data engineering team — epics, user stories, spikes — and decomposes canonical delivery documents into proposed ticket sets. Use when writing or refining a ticket, writing acceptance criteria, breaking a requirement into work, assessing whether backlog items are ready, or preparing for grooming. Triggers on phrasing like "write a ticket for", "break this down", "is this ready to build", or "prep for grooming" without an explicit request.
 ---
 
 # Delivery Readiness
@@ -11,9 +11,9 @@ The job is not producing documents. It is producing work that a developer can pi
 
 ## Scope
 
-**In:** epics, user stories, spikes, data onboarding tickets, empirical monitoring tickets, decomposition of canonical delivery documents, readiness assessment, technical pre-reads.
+**In:** epics, user stories, spikes, enabler tasks, catalog comments, decomposition of canonical delivery documents, readiness assessment, test design.
 
-**Out:** sprint plans, quarterly plans, burndown, velocity, status reporting, stakeholder-facing communications. Those belong to `delivery-communication`.
+**Out:** sprint plans, quarterly plans, burndown, velocity, status reporting, stakeholder-facing communications — `delivery-communication`. Authoring or revising a specification, data model, grain, column semantics, build sequence or assertions — `specification-authoring`.
 
 The test: does this artifact **enter** the delivery pipeline, or **describe** it?
 
@@ -33,7 +33,7 @@ Every artifact this skill produces is written in the same register.
 
 **Ask, never invent.** Table names, grain, sources, keys, dates, thresholds, stakeholder names — if it is not provided, ask. An invented specific is worse than a stated gap.
 
-**Link, never copy.** The Definition of Done, OKR pages, sprint pages, and data model specifications have canonical homes. Resolve them live via `references/confluence-map.md` and reference them. Never hard-code a URL. Never restate a standard that lives elsewhere. If Confluence is unreachable, apply the fallback in that file.
+**Link, never copy.** The Definition of Done, OKR pages, sprint pages, and data model specifications have canonical homes. Reference them; never hard-code a URL and never restate a standard that lives elsewhere. If a canonical link is not supplied, ask for it rather than inventing or omitting it.
 
 **One standard, one home.** This applies to the references themselves. `acceptance-criteria.md` owns AC quality; every other reference points at it. Do not restate a rule that another reference owns.
 
@@ -41,7 +41,7 @@ Every artifact this skill produces is written in the same register.
 
 **Declare the target gate.** UAT, prod, or spike. This determines which DoD gate applies. Default to UAT if unspecified.
 
-**Publish in storage format.** Anything posted to Confluence is converted to Confluence storage format per `confluence-formatting.md`, using the appropriate macros. Never post raw Markdown.
+**Publish in storage format.** Anything posted to Confluence is converted to Confluence storage format per `../shared/confluence-formatting.md`, using the appropriate macros. Never post raw Markdown.
 
 **Never invent business context.** Business problem and business impact sections on initiatives and epics come from a business source. If the only inputs are technical, stop and ask — see the business context gate in `initiative-summary.md` and `epic.md`.
 
@@ -57,9 +57,9 @@ Every artifact this skill produces is written in the same register.
 
 The lifecycle, and which reference governs each step:
 
-1. **A canonical delivery document arrives** from the BA requirements conversion process → `decomposition.md` Mode 1 proposes the ticket set. Propose, do not write, until approved.
+1. **A canonical delivery document arrives** from `specification-authoring` → `decomposition.md` Mode 1 proposes the ticket set. Propose, do not write, until approved.
 
-2. **Tickets are written** against the proposal → `epic.md`, `user-story.md`, `data-onboarding.md`, `empirical-monitoring.md`. All acceptance criteria per `acceptance-criteria.md`.
+2. **Tickets are written** against the proposal → `epic.md`, `user-story.md`. All acceptance criteria per `acceptance-criteria.md`.
 
 3. **Requirements keep arriving** — by email, in conversation, out of grooming → `decomposition.md` Mode 2 reports what changes. Never regenerate the set.
 
@@ -78,8 +78,6 @@ The through-line: **nothing enters a sprint unassessed, and nothing sets archite
 | Spans multiple epics, delivers a business capability, ties to OKRs | Initiative summary | `initiative-summary.md` |
 | Spans multiple tickets, delivers a named dataset, has its own stakeholders | Epic | `epic.md` |
 | Delivers a functional change a consumer receives | User story | `user-story.md` |
-| Lands a new source and makes it queryable (L0→L1) | Data onboarding | `data-onboarding.md` |
-| Configures monitors on a table with real data | Empirical monitoring | `empirical-monitoring.md` |
 | Applies supplied dataset and column descriptions to catalog objects | Catalog comments | `catalog-comments.md` |
 | Answers a question the team cannot proceed without | Spike | `spike.md` |
 
@@ -87,7 +85,7 @@ If unclear, ask. Three boundary cases worth knowing:
 
 - **Purely internal engineering work with no consumer-facing outcome** is a task, not a story. Do not force a story frame onto it.
 - **Undecided implementation approach** means the work is not ready as a story. It is a spike.
-- **Empirical monitors never ride on a build ticket.** They require real data, so they are always a separate ticket. The build ticket carries the standard exclusion.
+- **Runtime monitors do not gate a merge.** They are a deliverable of the unit, verified post-deploy. Split them by threshold source per `decomposition.md` — monitors covered by out-of-the-box tooling get no ticket.
 
 ## Procedure
 
@@ -95,7 +93,7 @@ If unclear, ask. Three boundary cases worth knowing:
 2. Read the matching reference in full before writing anything.
 3. Read `acceptance-criteria.md` for any ticket carrying AC.
 4. Collect the reference's required inputs. Ask for anything missing.
-5. Resolve Confluence links live via `references/confluence-map.md`.
+5. Ask for any canonical Confluence link the artifact must reference.
 6. Write the artifact.
 7. Assess against `definition-of-ready.md` before finalizing. Report Ready / Partial / Not ready, naming any unmet condition and its owning party.
 
@@ -104,11 +102,10 @@ If unclear, ask. Three boundary cases worth knowing:
 - `acceptance-criteria.md` — the AC quality standard. Read for every ticket carrying criteria
 - `definition-of-ready.md` — the intake gate, universal and type-specific conditions
 - `decomposition.md` — four modes: propose, refine, spike from grooming, close spike
-- `initiative-summary.md` · `epic.md` · `user-story.md` · `spike.md` · `data-onboarding.md` · `empirical-monitoring.md` · `catalog-comments.md` — archetypes
+- `initiative-summary.md` · `epic.md` · `user-story.md` · `spike.md` · `catalog-comments.md` — archetypes
 - `backlog-readiness-assessment.md` — backlog assessment and grooming communication
-- `technical-preread.md` — developer-facing pre-read format
-- `confluence-formatting.md` — storage format and macro usage for anything published to Confluence
-- `confluence-map.md` — live link resolution and fallback
+- `test-design.md` · `check-authoring.md` · `capability-test-plan.md` — assertion and test authoring
+- `../shared/confluence-formatting.md` — storage format and macro usage for anything published to Confluence
 
 ## The line this skill holds
 

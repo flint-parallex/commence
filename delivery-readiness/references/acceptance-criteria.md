@@ -1,6 +1,6 @@
 # Acceptance Criteria
 
-The standard for what makes a criterion acceptable. Owned here, referenced everywhere — `user-story.md`, `spike.md`, `data-onboarding.md`, `empirical-monitoring.md`, and `definition-of-ready.md` all point at this file. Do not restate these rules elsewhere.
+The standard for what makes a criterion acceptable. Owned here, referenced everywhere — `user-story.md`, `spike.md`, `decomposition.md`, and `definition-of-ready.md` all point at this file. Do not restate these rules elsewhere.
 
 ## The test
 
