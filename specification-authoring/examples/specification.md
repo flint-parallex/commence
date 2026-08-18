@@ -3,6 +3,8 @@
 | Field | Value |
 |---|---|
 | Data Solution | `13f-institutional-holdings` |
+| Unity Catalog location | `sec.13f` *(invented)* |
+| OKR | `IP-OKR-142` *(invented)* |
 | Version | `v0.1` |
 | Author | J. Okafor — Senior Analyst, Data Product & Operations *(invented)* |
 | Date | `2026-08-18` |

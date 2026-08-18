@@ -32,6 +32,8 @@ required it. You verify the binding exists at acceptance.
 | Field | Value |
 |---|---|
 | Data Solution | `<name>` |
+| Unity Catalog location | `<catalog>.<schema>` |
+| OKR | `IP-OKR-###` |
 | Version | `v0.1` |
 | Author | `<name>` |
 | Date | `<YYYY-MM-DD>` |
@@ -147,6 +149,17 @@ required it. You verify the binding exists at acceptance.
 | Source | Contract reference | Stability | Notes |
 |---|---|---|---|
 | | | | |
+
+**Internal upstream products and capabilities**
+
+<!-- Cite by name and commit, never by path. An internal upstream differs from an
+     external source: it carries a compatibility promise (§7) you can read. Check that
+     everything relied on here is actually covered by that promise — where it is not,
+     that is a change to the upstream's §7, not an assumption to carry. -->
+
+| Upstream | Type | Cited at commit | Relied on for | Covered by their §7 |
+|---|---|---|---|---|
+| `<product or capability name>` | Product / Capability | `<commit>` | `<what this Solution depends on>` | Yes / No — raise |
 
 **Canonical references**
 
