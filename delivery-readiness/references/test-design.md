@@ -4,16 +4,9 @@ Proposes runnable tests at two scopes: **from a ticket's acceptance criteria**, 
 
 ## Tests versus monitors
 
-Both assert things about data. They are not the same artifact and should not be conflated.
+Owned by `../../specification-authoring/references/assertion-authoring.md`, which defines three classes — unit, data, and runtime monitor — with severity and threshold source per class.
 
-| | Test | Monitor |
-|---|---|---|
-| Asserts | Intent — what was specified | Behavior — what is happening |
-| Runs | At build, in CI, before acceptance | Continuously, in production |
-| Failure means | The build does not meet the spec | The world changed |
-| Owned by | The ticket or the product suite | `empirical-monitoring.md` |
-
-An assertion can legitimately appear in both. Do not derive one from the other automatically — a test threshold comes from the specification, a monitor threshold comes from observed history.
+The rule that matters here: **a test threshold comes from the specification; a monitor threshold may come from observed history.** Never derive one from the other. Do not generate monitors in this file — those are declared in specification §6c per `runtime-monitors.md`.
 
 ## Available checks
 
@@ -26,11 +19,11 @@ For placement of a new check, the tests-versus-monitors boundary, and how criter
 ## Required inputs
 
 - **Implementation target** — pytest against Databricks is the established pattern in this environment; confirm rather than assume
-- **Data model** — columns, types, nullability
-- **Grain** and **primary key**
-- **Referential relationships** — source tables and join keys, where applicable
+- **The specification**, cited at a commit. §4 supplies the data model, grain, keys and relationships; §6 supplies the assertions
 - For Mode 1: the ticket and its acceptance criteria
 - For Mode 2: the data product and its constituent tables
+
+Where the specification does not declare something a test needs, ask. Do not source it from the data model file or from the tables.
 
 Data samples are used only to set thresholds where a criterion requires one. **Never derive a test from observed data alone** — that encodes current behavior as correct, which is the opposite of what a test does.
 
@@ -41,6 +34,8 @@ Data samples are used only to set thresholds where a criterion requires one. **N
 **Input:** a ticket. **Output:** one proposed test per acceptance criterion, in the implementation target's syntax, ready to paste into the ticket.
 
 Because acceptance criteria are already written as runnable checks per `acceptance-criteria.md`, this is translation rather than interpretation. If a criterion cannot be translated, that is a defect in the criterion — flag it rather than inventing a test around it.
+
+**Where a criterion cites an assertion ID**, carry the ID onto the test. That is what lets a Mode 1 test be promoted into the Mode 2 suite without losing its trace.
 
 > Criterion: `cik` is not null in all rows.
 > Test: `not_null` on `cik`.
@@ -68,29 +63,31 @@ Because acceptance criteria are already written as runnable checks per `acceptan
 
 This is the more valuable artifact. A suite built once and extended per delivery becomes the product's regression protection — and the shared components carry across every product.
 
-### Shared components — every product, every table
+### The suite is built from the specification, not re-derived
 
-Proposed by default from the data model. These require no ticket and no interpretation:
+**Every test traces to a declared assertion.** Specification §6b already declares uniqueness, key nullability, schema conformance, referential integrity and accepted values, each carrying an assertion ID. Do not re-derive these from the data model — a suite derived independently can disagree with the specification, and nothing reconciles the two.
 
-- **Primary key uniqueness** — on the declared key set
-- **Primary key not null** — every key column
-- **Schema conformance** — column set, types, nullability match the model
-- **Referential integrity** — target keys exist in each declared source
-- **Accepted values** — on any column with an enumerated domain in the model
+Read §6a and §6b and organize them into a runnable suite. Each test carries the ID of the assertion it implements.
 
-Where a data contract exists, schema conformance is asserted against the contract rather than restated.
+**This makes coverage a diff.** Assertions in §6 with no test in the suite are uncovered. Tests in the suite with no assertion behind them are scope that was never declared. Both are reportable without judgment.
+
+**Where an assertion has a check file** at `products/<product>/checks/<ASSERTION-ID>.sql`, the suite references it rather than restating the logic.
+
+**Where the suite needs a test that §6 does not declare**, that is a gap in the specification, not a test to add quietly. Report it back — the specification is where assertions are decided.
 
 ### Product-specific tests
 
-Derived from the product's own criteria — grain and historization behavior, bitemporal currency (exactly one current row per key), completeness against source, cross-table consistency where a product spans tables.
+The product's own §6a and §6b assertions beyond the common set — grain and historization behaviour, bitemporal currency (exactly one current row per key), stage conservation, completeness against source, cross-table consistency where a product spans tables.
+
+§6a assertions are written as input/output pairs and translate to tests directly, including the negative cases. A pair set with only well-formed inputs is a specification defect, not a suite to fill in.
 
 ### Suite structure
 
-Organize by table, with shared components first and product-specific tests after. State for each test whether it is a shared component or product-specific, so the shared set can be regenerated when it changes without touching bespoke tests.
+Organize by table. State each test's assertion ID and its class, so the suite can be reconciled against §6 without reading the test bodies.
 
 ### Growth
 
-The suite is extended per delivery, never rebuilt. When a ticket adds a table or a column, its Mode 1 tests are promoted into the suite. When a production incident reveals a gap the suite did not catch, a test is added and traced back to the incident — that is the preventive backlog item made concrete.
+The suite is extended per delivery, never rebuilt. When a ticket adds a table or a column, its Mode 1 tests are promoted into the suite. When a production incident reveals a gap the suite did not catch, the question is which assertion would have caught it. Where one exists and was untested, add the test. Where none exists, the gap is in specification §6 and the incident record says so — see `REPO-STRUCTURE.md` on incidents.
 
 ---
 
@@ -100,10 +97,11 @@ The suite is extended per delivery, never rebuilt. When a ticket adds a table or
 - Never derive a test from observed data alone. Tests assert specification, not current behavior.
 - A criterion that cannot be translated is a defect in the criterion. Flag it; do not invent a test.
 - Report coverage in both directions — untested criteria and untraced tests.
-- Do not generate monitors here. Thresholds derived from history belong in `empirical-monitoring.md`.
+- Do not generate monitors here. Runtime monitors are declared in specification §6c per `runtime-monitors.md`.
 - Check `unit_tests/checks_reference.md` before proposing a test. Do not reimplement an available check.
 - Placement of new checks follows `check-authoring.md`. Logic does not belong in a dataset file.
-- Shared components are proposed from the data model, not from a ticket.
+- Every test carries the ID of the assertion it implements. A test with no assertion behind it is undeclared scope.
+- The suite is built from specification §6, never re-derived from the data model.
 - The suite is extended, never regenerated wholesale.
-- Where a test is added in response to an incident, record which incident.
+- Where a test is added in response to an incident, record the incident and the assertion ID.
 - Neutral and brief.
