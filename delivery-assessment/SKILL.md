@@ -48,13 +48,21 @@ Read the reference for the task before starting.
 | Task | Reference |
 |---|---|
 | Decide whether a document is an ADR, a design doc, or both | `classification-criteria.md` |
-| Write the assessment and post it | `document-assessment.md` |
+| Write the assessment | `document-assessment.md` |
 | Structure or review a UAT validation test plan | `uat-test-plan.md` |
 | Propose tests from a ticket's acceptance criteria, or build a product test suite | `test-design.md` |
 | Decide where a data quality check should live | `check-authoring.md` |
 | Plan acceptance of a capability delivered by another team | `capability-test-plan.md` |
 
-Where an output will be posted to Confluence, render per `../shared/confluence-formatting.md`.
+## Publishing
+
+**This skill writes assessments. It does not render or post them.**
+
+Rendering and posting are centralised in `delivery-communication` — how a platform renders, space and project conventions, field mapping, and the mechanical pre-post check. Centralising it means one place knows each platform's quirks rather than five skills each carrying a stale copy.
+
+When an assessment is ready to go out, hand it over with the destination named: the page or ticket, and the platform. Do not render it here, and do not adapt the wording to fit a platform.
+
+**Where an assessment cannot be rendered without changing what it says, that comes back here.** A table too wide, a structure the platform will not carry — the fix is authoring, not transit. An assessment whose posted version differs from the reviewed version, with nothing recording who changed it, is what this boundary prevents.
 
 ## Core principles
 
@@ -74,15 +82,17 @@ Where an output will be posted to Confluence, render per `../shared/confluence-f
 
 **Ask rather than infer.** Thresholds, relationships, implementation targets, agreed conditions. Where the source does not establish something, list it as an open item rather than assuming agreement.
 
+**Write the assessment; hand off the posting.** The artifact leaves here written and unrendered. See Publishing.
+
 ## Reference files
 
 - `classification-criteria.md` — the ADR / design doc / combination definitions
-- `document-assessment.md` — how to assess a document, and how to post the assessment
+- `document-assessment.md` — how to assess a document
 - `uat-test-plan.md` — structure and review of a UAT validation test plan
 - `test-design.md` — tests from acceptance criteria, and the standing product test suite
 - `check-authoring.md` — where a check should live, and how criteria connect to checks
 - `capability-test-plan.md` — testing a capability delivered by another team
-- `../shared/confluence-formatting.md` — storage format and macro usage
+- `../delivery-communication/references/confluence-formatting.md` — rendering, owned by that skill
 - `../capabilities/pipeline-library/reference.md` — what the check library provides and does not
 - `../specification-authoring/references/assertion-authoring.md` — the three assertion classes, severity and threshold source
 
