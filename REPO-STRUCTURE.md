@@ -54,6 +54,10 @@ commence/
 │       ├── release-plan.md
 │       └── validation-summary.md
 │
+├── communications/                  ← periodic, cross-product outward artifacts
+│   ├── executive-updates/
+│   └── sprint-plans/
+│
 └── docs/
     ├── okr-map.md                   OKR → products. An index
     ├── release-map.md               release → tickets → products. An index
@@ -79,6 +83,7 @@ commence/
 | Pipeline library capability, shared utility reference | `capabilities/<capability>/` | Cross-product. Not a data product |
 | Incident report, exec comms, incident transcripts | `incidents/<incident-id>/` | The incident is the entity; it frequently spans products |
 | Catalog / schema location | Field in the specification header | Changes without the product changing |
+| Executive update, sprint plan | `communications/` | Periodic and cross-product. Belongs to no single product, incident or release |
 | OKR grouping | `docs/okr-map.md` | An index, never a directory |
 | Release grouping | `docs/release-map.md` and `releases/` | An index, never a directory |
 
@@ -137,7 +142,7 @@ intake (local)  →  specification.md  →  work-set.md  →  tickets/
 
 ## Skills
 
-Skills sit at the repository root because Databricks discovers them by the presence of `SKILL.md`. `products/`, `capabilities/`, `incidents/`, `releases/` and `docs/` are siblings and are ignored by that discovery.
+Skills sit at the repository root because Databricks discovers them by the presence of `SKILL.md`. `products/`, `capabilities/`, `incidents/`, `releases/`, `communications/` and `docs/` are siblings and are ignored by that discovery.
 
 **Verify this before committing to the layout.** If Databricks does not tolerate non-skill siblings at the skills root, the fallback is two repositories — skills in one, everything else in the other — with the second cloned into the workspace separately.
 
@@ -195,3 +200,85 @@ Do not place it. List it as unclassified with what would be needed to decide.
 **Where a file could be raw or curated, treat it as raw.** Curated material is authored deliberately and its author can confirm it. Misfiling curated material as raw costs a move; misfiling raw material as curated puts a withdrawn position into the record and, once pushed, into history.
 
 **Flag anything already committed that belongs in `_raw/`.** It needs removing from history, not moving. That is a decision for the operator, not an action to take.
+
+---
+
+## Explicit destinations
+
+Exact paths and filenames. Where a file matches a row here, place it there — do not re-derive from the classifier.
+
+`<product>`, `<incident-id>`, `<release-id>` and `<capability>` are directory names per the Naming section. Dates are `YYYY-MM-DD`.
+
+### Product artifacts
+
+| File | Exact path |
+|---|---|
+| Specification | `products/<product>/specification.md` |
+| Catalog DDL | `products/<product>/data-model.sql` |
+| Proposed work set | `products/<product>/work-set.md` |
+| Ticket | `products/<product>/tickets/<unit>-<slug>.md` |
+| UAT / functional test plan | `products/<product>/test-plan.md` |
+| Validation report | `products/<product>/validation-report.md` |
+| Verification / discovery run output | `products/<product>/verification/<YYYY-MM-DD>-verification.md` and `-discovery.md` |
+| Sample data | `products/<product>/samples/<descriptive-name>.<ext>` |
+| Decision note, product-scoped | `products/<product>/decisions/<YYYY-MM-DD>-<slug>.md` |
+| Curated meeting note, product-scoped | `products/<product>/decisions/<YYYY-MM-DD>-<slug>.md` |
+| BA transcript, requirement doc, email thread | `products/<product>/_raw/` — **not committed** |
+| Intake document as received | `products/<product>/_raw/` — **not committed** |
+
+There is no `notes/`, `misc/`, `working/` or `archive/` directory under a product. Curated product material is a decision note or it is one of the named artifacts above.
+
+### Capability artifacts
+
+| File | Exact path |
+|---|---|
+| Capability reference | `capabilities/<capability>/reference.md` |
+| Usability guidelines from Confluence | `capabilities/<capability>/usability-guidelines.md` |
+| Any further capability document | `capabilities/<capability>/<slug>.md` |
+
+### Incident artifacts
+
+| File | Exact path |
+|---|---|
+| Incident report | `incidents/<incident-id>/report.md` |
+| Executive communication about the incident | `incidents/<incident-id>/communications/<YYYY-MM-DD>-exec.md` |
+| Confluence draft about the incident | `incidents/<incident-id>/communications/<YYYY-MM-DD>-<slug>.md` |
+| Incident meeting transcript, raw notes | `incidents/<incident-id>/_raw/` — **not committed** |
+
+### Release artifacts
+
+| File | Exact path |
+|---|---|
+| Release plan | `releases/<release-id>/release-plan.md` |
+| Validation summary | `releases/<release-id>/validation-summary.md` |
+| Release communication | `releases/<release-id>/<YYYY-MM-DD>-<slug>.md` |
+
+### Periodic communications
+
+| File | Exact path |
+|---|---|
+| Executive update | `communications/executive-updates/<YYYY-MM-DD>.md` |
+| Sprint plan | `communications/sprint-plans/<sprint-id>.md` |
+
+### Cross-product documents
+
+| File | Exact path |
+|---|---|
+| OKR index | `docs/okr-map.md` |
+| Release index | `docs/release-map.md` |
+| Team meeting note, curated | `docs/meetings/<YYYY-MM-DD>-<slug>.md` |
+| Ways of working, process, standards | `docs/ways-of-working/<slug>.md` |
+| Migration plan | `docs/migration-plan.md` |
+| Team meeting transcript, raw | `docs/_raw/` — **not committed** |
+
+### Skills
+
+| File | Exact path |
+|---|---|
+| Skill entry point | `<skill-name>/SKILL.md` |
+| Skill reference file | `<skill-name>/references/<slug>.md` |
+| Content shared across skills | `shared/<slug>.md` |
+
+### Not placed
+
+Anything not matching a row above and not resolved by the classifier is listed as unclassified. **Do not create a directory to hold it.** A new top-level directory is a change to this document and requires a decision, not an inference.
