@@ -38,13 +38,25 @@ For observed-history monitors only. Specification-sourced monitors take their th
 
 **Method.** Set the threshold from a statistical value over a baseline window, then backtest: count the days in that window on which the threshold would have triggered. **The target is zero.**
 
+`monitor-calibration.md` carries the derivation rules — backfill exclusion, volume bounds, modal-cadence freshness — and the SQL for each monitor type. Use it rather than deriving ad hoc.
+
 **Declare the baseline window and its assumption.** The backtest treats the baseline period as correct. That assumption is worth stating, because it is the one that fails silently — if the window contains a real incident nobody caught, calibrating to zero triggers encodes the miss as normal, permanently.
+
+**Exclude backfill before calibrating.** An initial load carries volume no ongoing period will match, and leaving it in widens every threshold enough to mask a real drop. Working from the start of the series, exclude leading periods whose volume exceeds a stated multiple of the median of the following window — and stop at the first period that does not. Cap the exclusions; a series that keeps qualifying is not a backfill, it is a trend.
+
+**Report every exclusion, with its date and value.** A backfill nobody knew about is itself a finding. Backfill is the only outlier handling: do not trim tails, and do not drop periods for looking wrong.
+
+**Where fewer periods are available than the baseline requires,** calibrate anyway and state prominently that the baseline is thin and must be revisited. A thin baseline is not a reason to skip the monitor; it is a reason to say so.
+
+**Show the derivation.** A threshold recorded without the observed values it came from is asserted rather than calibrated, and cannot be reviewed. Record periods included, periods excluded with their values, the observed range, the resulting threshold, and the backtest result.
 
 **What zero triggers proves, and what it does not.** It proves the monitor will not be noisy. It proves nothing about whether the monitor would catch anything. A threshold wide enough never to have fired is also wide enough to miss a genuine drop.
 
 Where a threshold has been widened to reach zero triggers, record what it can no longer detect. That sentence is the honest cost of a quiet monitor and it belongs in the monitor's description, where the consumer reading an alert — or reading no alert — can see it.
 
 **Prefer generous thresholds.** Over-alerting is the failure mode that destroys a monitoring surface, and a consumer who has stopped opening alerts is worse off than one who never had them. Widen deliberately and record the cost; do not tighten to feel thorough.
+
+**Land every new monitor in warn-only first.** A monitor goes to warn-only for an agreed observation window before it routes to a channel. An untuned monitor produces noise, noise gets muted, and a muted alerting surface is worse than no alerting at all — because it reads as covered. State the observation window alongside the threshold, and treat routing as a separate step that happens after it.
 
 ## Timing
 
@@ -68,4 +80,7 @@ The distinction to hold: a monitor covering the *same column* as an out-of-the-b
 - Growth is anchored on refresh, not on the calendar.
 - Every observed-history monitor declares its baseline window, and the assumption that the window was incident-free is explicit.
 - Where a threshold was widened to reach zero backtest triggers, what it can no longer detect is recorded.
+- Backfill exclusions are reported with their dates and values, and no other periods were dropped.
+- Every calibrated threshold carries the derivation it came from.
+- Every new monitor has a stated warn-only observation window before routing.
 - No specification-sourced monitor carries a calibration.
