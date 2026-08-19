@@ -34,6 +34,7 @@ commence/
 │       ├── tickets/
 │       ├── test-plan.md                  derived from specification §6
 │       ├── validation-report.md          derived from specification §6
+│       ├── checks/                        one SQL file per assertion. Filename = binding
 │       ├── samples/                      sample data, evidence for §6a and discovery
 │       ├── decisions/                    curated, with rationale
 │       └── _raw/                         NOT COMMITTED
@@ -74,7 +75,9 @@ commence/
 | Data model DDL | Alongside the specification | Emitted from it; they version together |
 | Work set, tickets | Alongside the specification | Derived from it; traceable only if co-located |
 | Test plan, validation report | Alongside the specification | Derived from §6 |
+| Assertion check SQL | `products/<product>/checks/` | Config, not deployment. Filename is the assertion ID, so the filename is the binding |
 | Sample data | `products/<product>/samples/` | Evidence for §6a pairs and for discovery. Same lifecycle as the spec, same review |
+| Pipeline unit test code | **Not here.** Engineering repository | We declare what must be true; engineering decides how it is checked |
 | Decisions about **this product** | `products/<product>/decisions/` | Product-scoped rationale |
 | Decisions about **how we work** | `docs/ways-of-working/` | Cross-product |
 | Meeting notes, product-specific | `products/<product>/decisions/` | Curated as decisions, not as minutes |
@@ -220,6 +223,7 @@ Exact paths and filenames. Where a file matches a row here, place it there — d
 | UAT / functional test plan | `products/<product>/test-plan.md` |
 | Validation report | `products/<product>/validation-report.md` |
 | Verification / discovery run output | `products/<product>/verification/<YYYY-MM-DD>-verification.md` and `-discovery.md` |
+| Assertion check SQL | `products/<product>/checks/<ASSERTION-ID>.sql` |
 | Sample data | `products/<product>/samples/<descriptive-name>.<ext>` |
 | Decision note, product-scoped | `products/<product>/decisions/<YYYY-MM-DD>-<slug>.md` |
 | Curated meeting note, product-scoped | `products/<product>/decisions/<YYYY-MM-DD>-<slug>.md` |
@@ -227,6 +231,19 @@ Exact paths and filenames. Where a file matches a row here, place it there — d
 | Intake document as received | `products/<product>/_raw/` — **not committed** |
 
 There is no `notes/`, `misc/`, `working/` or `archive/` directory under a product. Curated product material is a decision note or it is one of the named artifacts above.
+
+**There is no `tests/` directory.** Unit assertion cases live as input/output pairs in specification §6a — duplicating them as test files creates two versions that drift, with no way to tell which is authoritative. Pipeline test code belongs to engineering and lives in their repository.
+
+### Checks
+
+`checks/<ASSERTION-ID>.sql` holds one file per assertion that is implemented as SQL. Each returns a violation count; zero is a pass.
+
+**The filename is the binding.** Naming the file after the assertion ID means no separate registry has to be maintained, and coverage is a directory listing:
+
+- A file with no matching assertion in §6 is an **orphan check** — something is being enforced that the specification does not declare.
+- An assertion in §6 with no file and no other binding recorded is **unbound** — its state is unknown, not passing.
+
+Checks are configuration rather than deployed code: adding one is a file and a config row, not a release. That is deliberate, and it is why the directory is governed by the naming rule above rather than by a review process.
 
 ### Capability artifacts
 
