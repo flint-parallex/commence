@@ -78,7 +78,6 @@ The through-line: **nothing enters a sprint unassessed, and nothing sets archite
 | Spans multiple epics, delivers a business capability, ties to OKRs | Initiative summary | `initiative-summary.md` |
 | Spans multiple tickets, delivers a named dataset, has its own stakeholders | Epic | `epic.md` |
 | Delivers a functional change a consumer receives | User story | `user-story.md` |
-| Applies supplied dataset and column descriptions to catalog objects | Catalog comments | `catalog-comments.md` |
 | Answers a question the team cannot proceed without | Spike | `spike.md` |
 
 If unclear, ask. Three boundary cases worth knowing:
@@ -102,9 +101,8 @@ If unclear, ask. Three boundary cases worth knowing:
 - `acceptance-criteria.md` — the AC quality standard. Read for every ticket carrying criteria
 - `definition-of-ready.md` — the intake gate, universal and type-specific conditions
 - `decomposition.md` — four modes: propose, refine, spike from grooming, close spike
-- `initiative-summary.md` · `epic.md` · `user-story.md` · `spike.md` · `catalog-comments.md` — archetypes
+- `initiative-summary.md` · `epic.md` · `user-story.md` · `spike.md` — archetypes
 - `backlog-readiness-assessment.md` — backlog assessment and grooming communication
-- `test-design.md` · `check-authoring.md` · `capability-test-plan.md` — assertion and test authoring
 - `../delivery-communication/references/confluence-formatting.md` — storage format and macro usage for anything published to Confluence
 
 ## The line this skill holds
