@@ -175,10 +175,12 @@ Incident transcripts, incident reports, the exec communications generated from t
 
 **3 · Is it a reusable capability reference?**
 Applies across products, has no grain and no consumers, describes something the pipeline consumes rather than something the pipeline produces. → `capabilities/<capability>/`.
+
 If it has a grain, declared assets and assertions, it is a product, not a capability.
 
 **4 · Is it scoped to exactly one data product?**
 → `products/<product>/`, in the sub-location its type indicates: specification, DDL, work set, ticket, test plan, validation report, sample data, or decision note.
+
 **Scoping test:** would this file still make sense if that product were retired? If yes, it is not product-scoped.
 
 **5 · Is it an index across products?**
@@ -203,6 +205,7 @@ Do not place it. List it as unclassified with what would be needed to decide.
 **Where a file could be raw or curated, treat it as raw.** Curated material is authored deliberately and its author can confirm it. Misfiling curated material as raw costs a move; misfiling raw material as curated puts a withdrawn position into the record and, once pushed, into history.
 
 **Flag anything already committed that belongs in `_raw/`.** It needs removing from history, not moving. That is a decision for the operator, not an action to take.
+
 
 ---
 

@@ -1,5 +1,7 @@
 # PROPOSED WORK SET — 13F Institutional Holdings
 
+> **Example — invented content.** A worked `work-set.md` illustrating the output of `decomposition.md` Mode 1. Every field below is illustrative; nothing here describes a real product.
+
 Derived from `specification.md` v0.1 per `decomposition.md` Mode 1.
 
 ---
