@@ -41,7 +41,7 @@ Every artifact this skill produces is written in the same register.
 
 **Declare the target gate.** UAT, prod, or spike. This determines which DoD gate applies. Default to UAT if unspecified.
 
-**Publish in storage format.** Anything posted to Confluence is converted to Confluence storage format per `../shared/confluence-formatting.md`, using the appropriate macros. Never post raw Markdown.
+**Publish in storage format.** Anything posted to Confluence is converted to Confluence storage format per `../delivery-communication/references/confluence-formatting.md`, using the appropriate macros. Never post raw Markdown.
 
 **Never invent business context.** Business problem and business impact sections on initiatives and epics come from a business source. If the only inputs are technical, stop and ask — see the business context gate in `initiative-summary.md` and `epic.md`.
 
@@ -105,7 +105,7 @@ If unclear, ask. Three boundary cases worth knowing:
 - `initiative-summary.md` · `epic.md` · `user-story.md` · `spike.md` · `catalog-comments.md` — archetypes
 - `backlog-readiness-assessment.md` — backlog assessment and grooming communication
 - `test-design.md` · `check-authoring.md` · `capability-test-plan.md` — assertion and test authoring
-- `../shared/confluence-formatting.md` — storage format and macro usage for anything published to Confluence
+- `../delivery-communication/references/confluence-formatting.md` — storage format and macro usage for anything published to Confluence
 
 ## The line this skill holds
 

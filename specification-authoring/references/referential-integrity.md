@@ -12,7 +12,9 @@ These are the assertions most often written in one direction only, and the missi
 
 **A child asset that loses ninety per cent of its rows still passes the orphan test perfectly.** Every remaining row resolves. Orphan checks say nothing about completeness, and a specification that carries only orphan checks has no defence against the failure mode that actually occurs.
 
-Write both. State both.
+**A count comparison is not a loss check either.** A hundred records dropped and a hundred duplicated nets to zero variance. Count variance detects gross loss; only a key-level comparison proves the right records landed. Declare both, and have the key-level check return the missing keys with their source so a breach is diagnosable rather than merely visible.
+
+Write both directions. State both.
 
 ## Child assets
 

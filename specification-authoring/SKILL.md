@@ -78,11 +78,12 @@ The test: does this artifact state **what must be true of the product**, or **wh
 - `build-sequence.md` — section 5. Elicitation method and the end-state test
 - `assertion-authoring.md` — sections 6a–6c. Hazard-to-assertion conversion, the three classes, threshold source
 - `runtime-monitors.md` — section 6c in detail. Measure, evaluation window, calibration, and the alert fields
+- `monitor-calibration.md` — deriving observed-history thresholds from approved history, and the monitor SQL
 - `referential-integrity.md` — orphan and loss assertions for child, bridge and pipeline processing assets
 - `delivery-windows.md` — section 2. Delivery deadlines, processing window, missed-window behaviour, corrections
 - `catalog-ddl.md` — emitting comments and constraints so the specification's semantics reach the warehouse
 - `../delivery-readiness/references/definition-of-ready.md` — the standard this specification is written against
-- `../shared/confluence-formatting.md` — storage format for anything published to Confluence
+- `../delivery-communication/references/confluence-formatting.md` — storage format for anything published to Confluence
 
 ## The line this skill holds
 
