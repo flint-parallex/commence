@@ -28,7 +28,13 @@ The window is a declared property of the monitor, not an implementation detail. 
 
 **Volume.** Daily where daily volume is dense enough for a day-over-day comparison to be stable. Where the product loads sparsely — low row counts, irregular arrival, seasonal concentration — a single day carries too much variance to threshold, and the measure moves to an n-day rolling total. State n. Declare the density that justified the choice, so a later reviewer can tell whether the window still fits.
 
-**Freshness.** Whether a load or creation timestamp has advanced within n days. n comes from the observed refresh pattern, not from the SLO — the SLO is the promise to consumers, and a freshness monitor set at the SLO fires at the moment the promise breaks rather than before it. Set n inside the SLO so there is room to detect and correct (criterion 7).
+**Freshness.** Whether a load or creation timestamp has advanced within n days.
+
+n is derived from the observed refresh pattern and then **capped at the service level**: the empirical figure establishes what is normal, the SLO establishes what is permissible, and the threshold is the lower of the two, less an allowance for detection and correction (criterion 7). A monitor set at the published promise fires at the moment the promise breaks, which is too late to act on.
+
+**Where the cap produces a threshold tight enough to trigger on normal variation, that is a finding rather than a tuning problem** — the SLO is not achievable at the current refresh cadence. Report it; never widen past the SLO to quieten the monitor, which hides a commitment the product cannot meet.
+
+Formulas and constants: `monitor-calibration.md`.
 
 **Growth.** Anchor growth on the refresh event, not the calendar. Where refresh is irregular — and it usually is — growth per calendar day mixes periods with a load and periods without, and the resulting series is dominated by cadence rather than by growth. Measure growth between successive refreshes, using the same timestamp the freshness monitor reads.
 
@@ -36,7 +42,11 @@ The window is a declared property of the monitor, not an implementation detail. 
 
 For observed-history monitors only. Specification-sourced monitors take their threshold from the document and are never calibrated (criterion 22).
 
-**Method.** Set the threshold from a statistical value over a baseline window, then backtest: count the days in that window on which the threshold would have triggered. **The target is zero.**
+**Method.** Ground the threshold in a robust statistic over the baseline window, widen to cover that history, then backtest: count the periods in the window on which the threshold would have triggered. **The target is zero.**
+
+**Never derive a threshold from the observed minimum and maximum.** The extremes are the least stable values in a sample — one anomalous period sets the bound permanently, and a multiplier applied to an extreme inherits the instability rather than correcting it. Ground in the median and median absolute deviation, then widen.
+
+`monitor-calibration.md` is canonical for the formulas, the default constants and the SQL. Use it rather than deriving ad hoc. **Deviating from a default is permitted where a product's volatility genuinely does not fit it — record the value used and the reason in the derivation.** Silent substitution is what makes a threshold unreviewable.
 
 `monitor-calibration.md` carries the derivation rules — backfill exclusion, volume bounds, modal-cadence freshness — and the SQL for each monitor type. Use it rather than deriving ad hoc.
 
@@ -45,6 +55,8 @@ For observed-history monitors only. Specification-sourced monitors take their th
 **Exclude backfill before calibrating.** An initial load carries volume no ongoing period will match, and leaving it in widens every threshold enough to mask a real drop. Working from the start of the series, exclude leading periods whose volume exceeds a stated multiple of the median of the following window — and stop at the first period that does not. Cap the exclusions; a series that keeps qualifying is not a backfill, it is a trend.
 
 **Report every exclusion, with its date and value.** A backfill nobody knew about is itself a finding. Backfill is the only outlier handling: do not trim tails, and do not drop periods for looking wrong.
+
+**Widening covers approved history with backfill already excluded.** Where a single period forces a large widening, say so — an unrecorded incident inside the baseline becomes permanently undetectable once it is encoded as normal.
 
 **Where fewer periods are available than the baseline requires,** calibrate anyway and state prominently that the baseline is thin and must be revisited. A thin baseline is not a reason to skip the monitor; it is a reason to say so.
 
@@ -81,6 +93,8 @@ The distinction to hold: a monitor covering the *same column* as an out-of-the-b
 - Every observed-history monitor declares its baseline window, and the assumption that the window was incident-free is explicit.
 - Where a threshold was widened to reach zero backtest triggers, what it can no longer detect is recorded.
 - Backfill exclusions are reported with their dates and values, and no other periods were dropped.
-- Every calibrated threshold carries the derivation it came from.
+- Every calibrated threshold carries the derivation it came from, including the statistic, the constant used, and any widening with the period that forced it.
+- No threshold is derived from the observed minimum or maximum.
+- Freshness is capped at the SLO less correction time, and a cap that binds tighter than normal variation is reported rather than widened away.
 - Every new monitor has a stated warn-only observation window before routing.
 - No specification-sourced monitor carries a calibration.
