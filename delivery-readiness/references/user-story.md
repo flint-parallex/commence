@@ -99,5 +99,5 @@ Runtime monitors do not gate a merge. They are a deliverable of the unit, verifi
 - Reference the data model; do not inline it.
 - No duplication between parent and subtask, or between epic and story.
 - Tag to an OKR (IP-OKR-###). Ask for it if not provided.
-- Outcome-framed title: what the story achieves, not the activity.
+- Title per `ticket-titles.md`. The title identifies the thing; the story statement carries the outcome. Six words, fifty-five characters.
 - Neutral and brief. No padding, no restating the requirement back. A long ticket slows delivery as surely as a vague one.

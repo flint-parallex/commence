@@ -124,6 +124,8 @@ Missing inputs: <what the document does not specify that a ticket would need>
 
 Derivation, monitoring, and missing-inputs sections are required. Ask rather than inventing table names, grain, sources, keys, or dates.
 
+Titles in the work set are written per `ticket-titles.md` and carry forward unchanged to the ticket. Six words, fifty-five characters — a Title that wraps makes the set unreadable as a table, and is often a signal the unit is not cleanly cut.
+
 ---
 
 ## Mode 2 · Refine

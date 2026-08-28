@@ -102,6 +102,7 @@ If unclear, ask. Three boundary cases worth knowing:
 - `definition-of-ready.md` — the intake gate, universal and type-specific conditions
 - `decomposition.md` — four modes: propose, refine, spike from grooming, close spike
 - `initiative-summary.md` · `epic.md` · `user-story.md` · `spike.md` — archetypes
+- `ticket-titles.md` — how every title is written. Applies to all archetypes and to the work-set Title column
 - `backlog-readiness-assessment.md` — backlog assessment and grooming communication
 - `../delivery-communication/references/confluence-formatting.md` — storage format and macro usage for anything published to Confluence
 

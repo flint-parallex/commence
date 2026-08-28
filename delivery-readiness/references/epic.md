@@ -115,12 +115,12 @@ If the canonical DoD is unreachable, apply the fallback in `references/confluenc
 - Copy no standard that has a canonical home. Link it.
 - Name real people in stakeholders. If a role is unfilled, write `unassigned` — never a placeholder or a guess.
 - State dependency and stakeholder status as neutral fact. Never as a blame narrative.
-- Outcome-framed title: what the epic achieves, not the activity.
+- Title per `ticket-titles.md`. The title names the thing; the initiative summary and business problem carry the outcome. Six words, fifty-five characters.
 - Tag to an OKR (IP-OKR-###). Ask for it if not provided.
 
 ## Worked example
 
-**Title:** Private markets Form D data product available to Data Strategy consumers
+**Title:** Form D dataset
 
 **Initiative:** Private Markets — Form D
 **Target delivery date:** [date]
