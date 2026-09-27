@@ -48,7 +48,7 @@ Each cut is a unit. Name what grain assertion closes it.
 | Condition | Type | Reference |
 |---|---|---|
 | A consumer receives a functional change | User story | `user-story.md` |
-| Required for a later unit, no consumer-facing outcome | Enabler task | — |
+| Required for a later unit, no consumer-facing outcome | Enabler task | `task.md` |
 | The approach is undecided | Not ready — see below | `spike.md` |
 
 Classify honestly. If a unit has no consumer, it is an enabler, and it is written as a task. Do not force a story frame onto it — `user-story.md` forbids the engineer as the user, and inventing a consumer to satisfy the form produces exactly the ticket that rule exists to prevent.

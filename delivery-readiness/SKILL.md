@@ -43,7 +43,7 @@ Every artifact this skill produces is written in the same register.
 
 **Publish in storage format.** Anything posted to Confluence is converted to Confluence storage format per `../delivery-communication/references/confluence-formatting.md`, using the appropriate macros. Never post raw Markdown.
 
-**Never invent business context.** Business problem and business impact sections on initiatives and epics come from a business source. If the only inputs are technical, stop and ask — see the business context gate in `initiative-summary.md` and `epic.md`.
+**Never invent business context.** The business problem and business impact on an epic come from a business source. If the only inputs are technical, stop and ask — see the business context gate in `epic.md`.
 
 **Outcome-framed titles.** What the work achieves, not the activity.
 
@@ -75,15 +75,22 @@ The through-line: **nothing enters a sprint unassessed, and nothing sets archite
 
 | The work | Archetype | Reference |
 |---|---|---|
-| Spans multiple epics, delivers a business capability, ties to OKRs | Initiative summary | `initiative-summary.md` |
-| Spans multiple tickets, delivers a named dataset, has its own stakeholders | Epic | `epic.md` |
+| A business problem with a named consumer, spanning multiple tickets and possibly several data products | Epic | `epic.md` |
 | Delivers a functional change a consumer receives | User story | `user-story.md` |
+| Required for a later unit, no consumer-facing outcome | Enabler task | `task.md` |
 | Answers a question the team cannot proceed without | Spike | `spike.md` |
+
+Two independent questions decide this, and conflating them is the common error:
+
+1. **Who receives the outcome?** A consumer means a story. A later unit means a task. This decides the *form*.
+2. **Is the approach determinate?** If it must be designed and ratified before anyone builds, the work is not ready in either form — it is a spike declaring a design document as its output, closed per Mode 4, after which the build ticket is reshaped. This decides *readiness*.
+
+A task can be large and still determinate. A story can be small and still need a design first. Difficulty is not the test; whether the approach is one person's call is.
 
 If unclear, ask. Three boundary cases worth knowing:
 
 - **Purely internal engineering work with no consumer-facing outcome** is a task, not a story. Do not force a story frame onto it.
-- **Undecided implementation approach** means the work is not ready as a story. It is a spike.
+- **Work whose output is a precedent** — a pattern the rest of the initiative inherits — needs ratification before it is built, however clear the end state seems.
 - **Runtime monitors do not gate a merge.** They are a deliverable of the unit, verified post-deploy. Split them by threshold source per `decomposition.md` — monitors covered by out-of-the-box tooling get no ticket.
 
 ## Procedure
@@ -95,13 +102,15 @@ If unclear, ask. Three boundary cases worth knowing:
 5. Ask for any canonical Confluence link the artifact must reference.
 6. Write the artifact.
 7. Assess against `definition-of-ready.md` before finalizing. Report Ready / Partial / Not ready, naming any unmet condition and its owning party.
+8. **Render into the organization's required format** per `org-formats/`. Determine the Jira issue type by the release test — coding and a release means story, otherwise task — apply the required sections and labels, and decompose any build story into subtasks per `org-formats/subtask.md`. A required field with no source in the specification is reported as an open question, never filled.
 
 ## References
 
 - `acceptance-criteria.md` — the AC quality standard. Read for every ticket carrying criteria
 - `definition-of-ready.md` — the intake gate, universal and type-specific conditions
 - `decomposition.md` — four modes: propose, refine, spike from grooming, close spike
-- `initiative-summary.md` · `epic.md` · `user-story.md` · `spike.md` — archetypes
+- `epic.md` · `user-story.md` · `task.md` · `spike.md` — archetypes. The initiative is the platform-level rollup for SVP reporting and is never authored here
+- `org-formats/` — the organization's required Jira shapes: epic, story, task, subtask, bug, labels. Applied as a render pass after content is authored, never merged into the archetypes
 - `ticket-titles.md` — how every title is written. Applies to all archetypes and to the work-set Title column
 - `backlog-readiness-assessment.md` — backlog assessment and grooming communication
 - `../delivery-communication/references/confluence-formatting.md` — storage format and macro usage for anything published to Confluence

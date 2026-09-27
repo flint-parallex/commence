@@ -1,14 +1,20 @@
 # Epic
 
-An epic is the delivery container for a data product or a coherent slice of one. It rolls up to an initiative and decomposes into stories, spikes, and onboarding tickets.
+An epic is the **charter for a business problem**. It states what is wrong, what solving it is worth, how success will be measured, and what it will take to resource. It decomposes into stories, tasks, and subtasks.
 
-Write an epic when the work spans multiple tickets, delivers a named set of tables or datasets, and has its own stakeholder set and acceptance. If it fits in one ticket, it is not an epic.
+This is not the agile convention of bundling a body of consumer work. The unit is the business problem, and one business problem may span several data products. An epic is not one-to-one with a specification.
+
+Write an epic when there is a business problem with a named consumer, a measurable outcome, and enough work to span multiple tickets. If it fits in one ticket, it is not an epic.
+
+**The initiative is not authored.** Everything rolls up to the single platform-level initiative, which exists for SVP reporting. Name it in the header and write nothing for it.
+
+Rendered per `org-formats/epic.md`.
 
 ## The business context gate
 
 **Stop and flag if the inputs are not sufficient to write the business-facing sections.**
 
-The initiative summary, business problem, and business impact are business-facing. They must come from a business source — a requirement, a BA document, a stakeholder conversation. **Never derive them from technical content.** Given only a description of code to be fixed, a pipeline to be built, or a table to be delivered, a business problem can always be constructed that sounds plausible and is not grounded in anything a stakeholder said.
+The summary, business problem, and business impact are business-facing. They must come from a business source — a requirement, a BA document, a stakeholder conversation. **Never derive them from technical content.** Given only a description of code to be fixed, a pipeline to be built, or a table to be delivered, a business problem can always be constructed that sounds plausible and is not grounded in anything a stakeholder said.
 
 Sufficient business context means all four are known:
 
@@ -31,21 +37,26 @@ Ask for any of these that are missing. Do not invent them — especially named p
 
 - Initiative this epic rolls up to
 - Business problem being solved, and for whom
+- Every data product this epic spans, and the specification for each
 - Tables or datasets delivered, with grain
 - Named business owner, BA, consumer, upstream source owner, segment
-- Target delivery date
+- Target delivery date, if one exists
+- Quarter this epic belongs to
 - Quantifiable outcomes the data product must achieve
+- Resource requirements — for requirements, and for testing, separately
 - Known dependencies, including any external to the delivery team
 
 ## Structure
 
 ### Header fields
-- **Initiative:** the initiative this rolls up to
-- **Target delivery date:**
+- **Initiative:** the platform initiative. Fixed
+- **Quarter:** required on every epic
+- **Assignee:** the Product Owner
+- **Target delivery date:** or `none`, where no deadline exists
 - **DoD gate:** prod (default for a data product epic)
 
-### Initiative summary
-What this epic delivers for the initiative it rolls up to, and why it matters strategically. Two to four sentences. This carries the strategic framing — do not add a separate strategic value section.
+### Summary
+What this epic delivers and why it matters. Two to four sentences. This carries the strategic framing — do not add a separate strategic value section.
 
 ### Business problem
 What is broken, missing, or unavailable today, and for whom. Present tense, factual. Not a description of the solution.
@@ -58,12 +69,16 @@ What this epic does **not** include. Name adjacent work that could reasonably be
 
 This section is required. It is where scope creep is managed and where "can you also add..." gets resolved by reference rather than by negotiation.
 
-### Tables delivered
+### Data products delivered
 
-| Table | Grain | Business description |
-|---|---|---|
+An epic may span several. One row per data product, each linked to its own specification — the epic references them and never restates their content.
+
+| Data product | Specification | Tables | Grain | Business description |
+|---|---|---|---|---|
 
 Business description is what the table represents to a consumer, not its technical structure.
+
+Where an epic spans more than one specification, each specification keeps its own grain, assertions and data contract. The epic is the business case they share, not a merged model.
 
 ### Dependency sequence
 
@@ -87,11 +102,21 @@ Mark external dependencies explicitly. Those are the ones that slip.
 
 Delivery team is always CAP Data Engineering. Upstream source owner is required — it is the party accountable for the data contract every downstream ticket depends on, and naming it at epic level surfaces the gap before any ticket is written.
 
-### Success metrics
+### Success criteria
 
-Quantifiable outcomes only. What the data product must achieve, expressed as numbers where possible — coverage, volume, freshness, latency, match rate, completeness.
+How success will be measured after delivery. Quantifiable outcomes only, expressed as numbers where possible — coverage, volume, freshness, latency, match rate, completeness.
+
+These are not acceptance criteria. Acceptance criteria gate a merge; success criteria answer whether the initiative was worth doing, and are assessed once it is in use. A success criterion that can be checked by running a test is an acceptance criterion in the wrong place.
 
 Delivery date belongs in the header. Stakeholder sign-off belongs in the Definition of Done. Keep this section to measurable product outcomes so it does not become a parking area.
+
+### Resource requirements
+
+Stated separately for **requirements** and for **testing**. These are distinct commitments and the organization tracks them as such — one line covering both is an incomplete epic.
+
+Name what is needed from whom: BA time for requirements authoring, business tester availability for UAT, and any party outside the delivery team whose capacity this depends on.
+
+Unknown is a valid answer and is reported as an open question. A guessed figure is not — it becomes someone's committed capacity the moment it is written.
 
 ### Definition of Done
 
@@ -110,23 +135,28 @@ If the canonical DoD is unreachable, apply the fallback in `references/confluenc
 
 ## Rules
 
-- Two "why" sections only — business problem and business impact. Strategic framing lives in the initiative summary. Do not add a third.
+- Two "why" sections only — business problem and business impact. Strategic framing lives in the summary. Do not add a third.
 - Scope boundary is required, not optional.
+- Quarter label and Product Owner assignee are required on every epic.
+- Resource requirements name requirements and testing separately.
+- An epic spanning several data products links each specification. It never merges or restates their models.
 - Copy no standard that has a canonical home. Link it.
 - Name real people in stakeholders. If a role is unfilled, write `unassigned` — never a placeholder or a guess.
 - State dependency and stakeholder status as neutral fact. Never as a blame narrative.
-- Title per `ticket-titles.md`. The title names the thing; the initiative summary and business problem carry the outcome. Six words, fifty-five characters.
+- Title per `ticket-titles.md`. The title names the thing; the summary and business problem carry the outcome. Six words, fifty-five characters.
 - Tag to an OKR (IP-OKR-###). Ask for it if not provided.
 
 ## Worked example
 
 **Title:** Form D dataset
 
-**Initiative:** Private Markets — Form D
+**Initiative:** Investment Platform
+**Quarter:** Q4 2026
+**Assignee:** Product Owner
 **Target delivery date:** [date]
 **DoD gate:** prod
 
-**Initiative summary.** Delivers the Form D dataset as a governed data product, giving Data Strategy direct access to private-markets filing data currently unavailable in a consumable form. First delivery under the private markets initiative and the pattern other filing-type products follow.
+**Summary.** Delivers Form D filing data as a governed data product, giving Data Strategy direct access to private-markets filing data currently unavailable in a consumable form. Establishes the pattern other filing-type products follow.
 
 **Business problem.** Form D filing data is not available to Data Strategy in a queryable, governed form. Analysis requiring private-markets issuer and offering data cannot be performed without manual extraction.
 
