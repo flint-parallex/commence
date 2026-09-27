@@ -4,7 +4,7 @@ The organization's epic is a **charter**, not a feature container. It carries th
 case, the measure of success, and the resourcing — closer to a project brief than to the
 agile convention of bundling a body of consumer work.
 
-Authored per `../epic.md` for content where the two overlap. Title per
+Authored per `../initiative-summary.md` for content where the two overlap. Title per
 `../ticket-titles.md`.
 
 ---
