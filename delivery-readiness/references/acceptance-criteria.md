@@ -47,6 +47,22 @@ Reference the spec artifact; do not inline the column list. Where a data contrac
 
 > The target table conforms to the data model specified in [link], including column names, types, and nullability.
 
+### From a declaration row
+
+Where the specification declares the rule in the §6 declaration table, the criterion **cites it and reuses its threshold verbatim**. Do not restate the rule in your own words — a restated assertion drifts from the one that will be implemented, and nothing reconciles the two.
+
+> `13F-D-003` — `duplicateValues` on `accession_number` is `mustBe: 0`.
+
+Carry across, unchanged: the **assertion ID**, the **condition as declared**, and the **threshold in its declared syntax**. Leave behind: dimension, business impact and severity — those are contract and reporting fields, not things a developer checks.
+
+**Never write the query.** The condition states what must hold; engineering writes the check against it. A criterion carrying SQL has specified the implementation, and it will be wrong the first time the table or the engine changes.
+
+> `13F-D-011` — count of `holdings_detail` rows per filing, less that filing's `table_entry_total`, is `mustBe: 0`.
+
+That is complete. A developer needs nothing further from the ticket to write the check.
+
+**A criterion with no declaration row behind it is undeclared scope.** Either the specification is missing an assertion, or the criterion is not needed. Both go back to the specification rather than being written here.
+
 ### Data quality — *assertion, written as a runnable check*
 Must be expressible as a dbt test, DLT/Lakeflow expectation, or Monte Carlo custom SQL. Write it so it can be lifted into that form without translation.
 
@@ -80,7 +96,7 @@ When the pipeline runs. Include timezone.
 > Given a pipeline run fails, when the failure is detected, then an alert routes to the CAP Data Engineering channel.
 
 ### Monitoring — *assertion*
-Monitors configured, with their breach conditions and routing. Full specification in `empirical-monitoring.md` — reference it rather than deriving thresholds here.
+Monitors configured, with their breach conditions and routing. Full specification in `../../specification-authoring/references/runtime-monitors.md` — reference it rather than deriving thresholds here.
 
 > `<table>_daily_volume` is configured in Monte Carlo with breach condition `record_count < <min> OR record_count > <max>`, priority P2, routing to the CAP Data Engineering channel.
 
