@@ -94,7 +94,8 @@ Propose, do not write, until approved. Never regenerate a set that already exist
 4. Write the artifact — functional requirement and verification only.
 5. Assess against `definition-of-ready.md`. Report Ready / Partial / Not ready, naming each unmet condition and its owner.
 6. Render into Jira shape per `org-formats/`, as a separate pass. A required field with no source is an open question, never a filled value.
-7. Where the story delivers or changes a dataset, add the monitoring subtask and its validation pair per `monitoring-subtask.md`. Not optional, not pruned for small datasets.
+7. Add the standard subtasks per `org-formats/subtask.md`. Never pruned: **MR review** on every story (`mr-review-subtask.md`), the **monitoring pair** on every story delivering or changing a dataset (`monitoring-subtask.md`), the **two spike subtasks** on every spike (`spike-subtasks.md`), and **UAT execution** on every story labelled `uat` (`uat-subtask.md`).
+8. Confirm the parent carries its full body and the acceptance criteria that close it. A subtask set with no parent has no completion condition and nothing to review against.
 
 ## References
 
@@ -103,6 +104,10 @@ Propose, do not write, until approved. Never regenerate a set that already exist
 - `decomposition.md` — four modes: propose, refine, spike from grooming, close spike
 - `epic.md` · `user-story.md` · `task.md` · `spike.md` — archetypes
 - `monitoring-subtask.md` — the observability and monitoring subtask, and its validation pair
+- `uat-subtask.md` — business validation. Created by the `uat` label, performed by the business owner
+- `l1-observability-sec.md` — the standard observability slate for SEC connector L1 onboarding
+- `mr-review-subtask.md` — the code review subtask. Every story, unassigned on creation
+- `spike-subtasks.md` — produce the design, and approve it. Every spike, different parties
 - `ticket-titles.md` — how every title is written
 - `backlog-readiness-assessment.md` — assessment and grooming communication
 - `example-work-set.md` — a worked decomposition

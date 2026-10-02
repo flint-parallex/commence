@@ -8,6 +8,22 @@ The template for the **Add observability and monitoring** subtask in the standar
 
 It is pruned only where the story delivers no dataset at all.
 
+## The parent story
+
+**This subtask never exists alone.** The parent story carries the acceptance criteria that close the ticket; the subtasks carry the steps. A monitoring subtask with no parent has no stated completion condition, and the MR reviewer has nothing to check it against.
+
+Where the parent does not exist, write it first. See `org-formats/subtask.md`.
+
+## Source-specific slates
+
+Where a standard slate exists for the source, use it rather than designing the layers per ticket.
+
+| Source | Slate |
+|---|---|
+| SEC connector, L1 onboarding | `l1-observability-sec.md` |
+
+A slate fills in all three layers below for that source. The ticket supplies only what is genuinely per-asset.
+
 ## Three layers
 
 They are separate because they fail separately and are configured in different places.
@@ -132,6 +148,8 @@ CONFIGURATION
   - Schema, volume and freshness monitors each return a current evaluation
   - Every assertion ID in specification §6 resolves to a configured check
   - Every configured check resolves to an assertion ID in §6
+  - Every monitor resolves in the tool with product, environment and fully qualified
+    table populated
   - Every binding is recorded in the specification
 
 BACKTEST EVIDENCE
@@ -151,12 +169,16 @@ dates and the observed values with the table; do not adjust the threshold yourse
 
 EXIT
 
+  - Every monitor tagged with product, environment and table
   - Evidence table attached, every row Execution PASS
   - Every row trigger rate ≤ 2%, or the exception reported with dates and values
   - Any UNBOUND assertion or UNDECLARED check reported
 
 Report any assertion with no check as UNBOUND. Report any check with no assertion as
-UNDECLARED. Neither is resolved here — both go back to the specification.
+UNDECLARED. Report any monitor with a missing or incorrect tag as UNTAGGED.
+
+UNBOUND and UNDECLARED go back to the specification. UNTAGGED is fixed here — it is a
+configuration omission, not a specification gap.
 ```
 
 **Both directions are checked.** An assertion with no check is unmonitored; a check with no assertion is enforcing something nobody declared. The second is the one that gets missed.
@@ -164,6 +186,36 @@ UNDECLARED. Neither is resolved here — both go back to the specification.
 **The table is an attachment, not a comment.** `org-formats/subtask.md` puts test records in comments per round and templates in attachments — this is a template artifact. A table pasted into a comment cannot be diffed against the next run's.
 
 ---
+## Required tagging — every observability ticket
+
+**Not SEC-specific and not optional.** Every monitor configured under this subtask carries three tags, populated in the monitoring tool:
+
+| Tag | Value |
+|---|---|
+| Product | The data product |
+| Environment | `dev` / `uat` / `prod` |
+| Table | Fully qualified `<catalog>.<schema>.<table>` |
+
+An untagged monitor fires into a queue nobody can filter and never appears in product health reporting — invisible exactly when someone is looking for it. A breach in UAT read as production is a false incident; the reverse is a missed one.
+
+**A tag stated in the ticket and absent from the tool is a tag that does not exist.** This is verified in the validation subtask, not assumed from the ticket.
+
+## Acceptance criteria for this subtask
+
+The three layers above are the table. The criteria reference it and never restate a threshold.
+
+```
+- Ensure Datadog receives the events listed in Layer 1 for at least one completed run
+- Ensure all three Layer 2 monitors are configured, each confirmed individually
+- Ensure every rule in the Layer 3 table is configured, with condition and threshold
+  matching the table exactly
+- Ensure every monitor is tagged with product, environment and fully qualified table,
+  populated in the monitoring tool
+- Ensure every binding is recorded in the specification
+```
+
+Five criteria for any number of monitors. Adding a rule to the table changes no criterion — which is the point. A criterion that names a specific threshold has to be edited every time the table is, and one of the two edits will eventually be missed.
+
 ## Rules
 
 **Never mark this subtask complete with a partial layer 2.** Three monitors, each confirmed.
@@ -179,5 +231,7 @@ UNDECLARED. Neither is resolved here — both go back to the specification.
 **The trigger rate is 2% of days evaluated, not of days in the window.** A monitor that ran on 27 days and triggered on 1 is 3.7%, not 3.3%. Using the window as the denominator flatters an already-failing execution row.
 
 **Execution coverage below 100% is a failure, not a caveat.** A monitor whose logic did not run on every day of the window has not been validated, whatever its trigger count says.
+
+**Criteria reference the table; they never restate a threshold.** Adding a monitor must not require editing a criterion.
 
 **Never close the observability subtask before the evidence table is attached.** The table is the only evidence the monitors were ever demonstrated to run.
