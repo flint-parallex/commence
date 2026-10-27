@@ -2,7 +2,7 @@
 
 Use for a one-on-one between the operator and one other person. The notes go to that person after the meeting, by email or on a Confluence page they can see. They are a shared recap both people can rely on later.
 
-All rules in SKILL.md apply. This file adds the variants, the template, the section notes, extra inputs, carry-over additions, and its own final checks.
+All rules in SKILL.md apply. This file adds the variants, the template, the section notes, extra inputs, carry-over additions, and its own final checks. Steps 1–4 of SKILL.md (purpose, meeting map, outcomes, and curating for impact) run here too. Only product decisions (SKILL.md Step 6) get an ID and go to the decision log (`references/decision-log.md`). Ordinary agreements stay in the body of the notes. Follow the layering and formatting rules in SKILL.md (Structure): one point per line, a bold label never carries prose, and fragments instead of sentences. Free-text cells and bullets in this template follow the same rules.
 
 ---
 
@@ -44,6 +44,7 @@ These apply on top of the neutrality rules in SKILL.md.
 ```markdown
 # One-on-One — [Operator] / [Counterpart] — [YYYY-MM-DD]
 
+Status as of [YYYY-MM-DD] · Current decisions: [decision log location]
 **About:** Discussed [A], [B], and [C].
 **Relevant to:** [Projects, products, or teams the conversation affects]
 
@@ -52,10 +53,8 @@ These apply on top of the neutrality rules in SKILL.md.
 
 [VARIANT SECTIONS — insert the sections for this type here]
 
-## Decisions Made
-| Decision | Decided by | Context |
-|---|---|---|
-| [What was decided] | [Name(s)] | [One line: what it changes] |
+## Decisions
+- **[What was decided]**: [reason or context, one clause] ([D-ID if a product decision])
 
 ## Open Questions
 | Question | Who answers it | Needed to answer | Target date |
@@ -165,7 +164,8 @@ These apply on top of the neutrality rules in SKILL.md.
 
 - **About** — one sentence, two or three topics.
 - **Relevant to** — the projects, products, or teams the conversation affects. Include it in both delivery modes.
-- **Open Questions** — the one-on-one name for Decisions Not Made. Same rules.
+- **Open Questions** — questions that don't pass the product-decision test. Same rules as Open Questions in every template.
+- **Decisions** — one line per decision, written as in discussion-meeting.md: the decision in bold, then one reason clause, with the ID at the end for product decisions. Other agreements belong in the variant section they concern (Priorities, Feedback, Process Improvements) or in Action Items. In a one-on-one, leave Product Decisions out when there are none, rather than writing "None this meeting."
 - **Action Items** — commitments from both people. Owner is always one of the two people or a named third party.
 - **Carried Over** — include this only when the previous notes from one-on-ones with the same counterpart were supplied.
 - **Empty sections** — in a one-on-one, leave out any variant section that wasn't discussed instead of writing "None this meeting." Shared-frame sections stay in, with "None this meeting."

@@ -1,8 +1,8 @@
-# Standard Meeting
+# Status Meeting (`status`, alias `standard`)
 
-The default template. Use it for any team, working, or cross-functional meeting that doesn't have its own reference.
+Use for status-style meetings: a round of updates on standing workstreams, such as syncs, stand-ups, steering check-ins, and recurring status. For meetings held to explore or decide, use `references/discussion-meeting.md` instead.
 
-All rules in SKILL.md apply. This file adds the template, the section notes, and one optional input.
+All rules in SKILL.md apply, including Steps 1–4 (purpose, meeting map, outcomes, and curating for impact). This file adds the template, the section notes, and one optional input. Only product decisions (SKILL.md Step 6) get an ID and go to the decision log (`references/decision-log.md`). Ordinary agreements stay in the body of the notes. Follow the layering and formatting rules in SKILL.md (Structure): one point per line, a bold label never carries prose, and fragments instead of sentences. Free-text cells and bullets in this template follow the same rules.
 
 ---
 
@@ -17,19 +17,19 @@ All rules in SKILL.md apply. This file adds the template, the section notes, and
 ```markdown
 # [Meeting Name] — [YYYY-MM-DD]
 
+Status as of [YYYY-MM-DD] · Current decisions: [decision log location]
 **About:** Discussed [A], [B], and [C].
+**Bottom line:** [One sentence, in business terms: the most important change since last meeting / "No material change."]
 **Relevant to:** [Workstreams, systems, or teams affected by what was decided or discussed]
-**Attendees:** [Name], [Name], [Name]
+**Attendees:** [Name] ([Role]) · [Name] ([Role])
 
 ## Key Takeaways
 - [Up to 3 bullets: what changed, or what is now true, because of this meeting]
 
-## Decisions Made
-| Decision | Decided by | Context |
-|---|---|---|
-| [What was decided] | [Name(s)] | [One line: why or what it changes] |
+## Decisions
+- **[What was decided]**: [reason or context, one clause] ([D-ID if a product decision])
 
-## Decisions Not Made
+## Open Questions
 | Open question | Decision owner | Needed to decide | Target date |
 |---|---|---|---|
 | [The open call] | [Name / Owner: not assigned] | [Input, data, or approval required] | [YYYY-MM-DD / Not set] |
@@ -55,7 +55,13 @@ All rules in SKILL.md apply. This file adds the template, the section notes, and
 | [Item] | [Name] | [YYYY-MM-DD] | [N] | [Done YYYY-MM-DD / In progress / Not discussed / Reassigned to Name / Closed — decided by Name] |
 
 ## Topics Discussed
-**[Topic]** — [Starting point]. [What was discussed]. Outcome: [result, or "No outcome reached"].
+### [N]. [Topic] — [Outcome tag]
+**Takeaway:** [Where it stands, one line]
+
+- **Update**
+  - [One fact per line] ([Name])
+- **Outcome**
+  - [D-ID / Agreed: … / Open question / No outcome reached]
 ```
 
 ---
@@ -64,11 +70,12 @@ All rules in SKILL.md apply. This file adds the template, the section notes, and
 
 - **About** — one sentence, two or three topics, written so an executive outside the project understands it.
 - **Relevant to** — the workstreams, systems, or teams whose work is affected by a decision, action, or open question from this meeting. This is the line a non-attendee scans to decide whether to keep reading. Use the names those teams and systems already go by. If nothing beyond the attendees is affected, write "Attendees only."
-- **Key Takeaways** — at most three bullets. These are deltas, not a recap. If nothing shifted, write "None this meeting."
+- **Bottom line** — use the impact framing from SKILL.md Step 4. In a status meeting, the most important change is often a date, a risk, or a dependency that moved.
+- **Key Takeaways** — at most three bullets, Lead items only. These are deltas, not a recap. If nothing shifted, write "None this meeting."
 - **Action Items** — list only items created in this meeting. Earlier items go in Carried Over.
 - **Requests & Dependencies** — any ask from one person or party to another for information, access, a deliverable, or a review. These are kept separate from Action Items so a reader can see at a glance who is waiting on whom.
 - **Carried Over** — include this section only when Previous Meeting Notes were supplied. Otherwise leave it out completely.
-- **Topics Discussed** — two lines at most per topic. Each topic opens with where things stood coming into the meeting (one clause), then what was discussed and where it landed.
+- **Topics Discussed** — numbered headings with outcome tags, then a **Takeaway:** line and labeled groups of one-line fragments (see discussion-meeting.md for a worked example). Open with where things stood coming into the meeting.
   - When a series structure is supplied, list its workstreams in order.
   - Under any workstream that didn't come up, write "Not discussed this meeting."
   - Slot any new topic into its logical position.

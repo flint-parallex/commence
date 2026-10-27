@@ -4,7 +4,7 @@ Use for backlog grooming or refinement sessions: the meeting walks through ticke
 
 Grooming notes answer two questions for anyone who opens them: what state is each ticket in now, and what has to happen before the next grooming session so the work moves forward. The Before Next Grooming section is the heart of the page.
 
-All rules in SKILL.md apply. This file adds the template, the section notes, one optional input, carry-over additions, and its own final checks.
+All rules in SKILL.md apply. This file adds the template, the section notes, one optional input, carry-over additions, and its own final checks. Steps 1–4 of SKILL.md (purpose, meeting map, outcomes, and curating for impact) run here too. Only product decisions (SKILL.md Step 6) get an ID and go to the decision log (`references/decision-log.md`). Ordinary agreements stay in the body of the notes. Follow the layering and formatting rules in SKILL.md (Structure): one point per line, a bold label never carries prose, and fragments instead of sentences. Free-text cells and bullets in this template follow the same rules.
 
 ---
 
@@ -19,6 +19,7 @@ All rules in SKILL.md apply. This file adds the template, the section notes, one
 ```markdown
 # Backlog Grooming — [Team or Product] — [YYYY-MM-DD]
 
+Status as of [YYYY-MM-DD] · Current decisions: [decision log location]
 **About:** Groomed [N] items: [N] ready, [N] need refinement, [N] split, [N] deferred. Focus: [plain-language theme, e.g., "issuer matching and data quality checks"].
 **Relevant to:** [Workstreams, systems, or teams affected]
 **Attendees:** [Name], [Name], [Name]
@@ -37,12 +38,10 @@ All rules in SKILL.md apply. This file adds the template, the section notes, one
 |---|---|---|---|---|---|
 | [Name / not assigned] | [Verb-first: clarify, confirm, provide, spike, size] | [ID — short name] | [What readiness gap it closes] | [YYYY-MM-DD] | [New] |
 
-## Decisions Made
-| Decision | Decided by | Context |
-|---|---|---|
-| [Priority, scope, or approach decision] | [Name(s)] | [One line: what it changes] |
+## Decisions
+- **[What was decided]**: [reason or context, one clause] ([D-ID if a product decision])
 
-## Decisions Not Made
+## Open Questions
 | Open question | Decision owner | Needed to decide | Target date |
 |---|---|---|---|
 | [The open call] | [Name / Owner: not assigned] | [Input required] | [YYYY-MM-DD / Not set] |
@@ -86,7 +85,7 @@ All rules in SKILL.md apply. This file adds the template, the section notes, one
     - **Ready:** the team agreed it can be pulled into a sprint.
     - **Needs refinement:** discussed, but something must happen first. Every Needs refinement ticket must have at least one row in Before Next Grooming. If the meeting named no next step, add a row with "Owner: not assigned" and "What to do or bring: Next step not identified."
     - **Split:** list the new tickets in What changed, with IDs if they were given.
-    - **Deferred** or **Removed:** say who decided it in What changed.
+    - **Deferred** or **Removed:** say who decided it in What changed. If removing or deferring it changes product scope, also add it to Decisions, with an ID, as a No-go (Removed) or a Defer (Deferred, with a date or trigger). Routine re-sequencing stays in Items Groomed.
   - **Estimate** — record only estimates stated on the record. Never infer one.
 - **Before Next Grooming** — every task someone must complete, or every input someone must bring, for a ticket to move toward Ready. This includes clarifying acceptance criteria, confirming a data source, getting a sample file, running a spike, getting a design, or getting a stakeholder answer.
   - **Due** — defaults to the day before the next grooming date when no other date was stated. If there's no next grooming date either, write "No date set."
